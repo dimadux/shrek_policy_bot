@@ -70,4 +70,4 @@ class Api:
         self.check_bad_word(update)
         self.check_register(update)
         self.check_unregister(update)
-        self.check_stats()
+        self.check_stats(update)
