@@ -16,6 +16,7 @@ docker run \
     --restart always \
     --user ${USER} \
     --net ${NET} \
+    --publish ${PORTS} \
     --name ${CONTAINER_NAME} \
     -v ${DIR}:/app \
     telegram_bot \
