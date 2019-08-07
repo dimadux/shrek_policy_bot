@@ -66,3 +66,30 @@ class DB:
     def get_shrek(self):
         return self._get_coll("stickers").find_one({"type": "shrek_policy"})["_id"]
 
+    def add_token_to_user(self, user_id, token):
+        user_tokens = self._get_record("users", user_id).get("tokens", [])
+        user_tokens = user_tokens + token
+        self._get_coll("users").update_one({"_id":user_id}, {"$set": {
+            "tokens":user_tokens
+        }})
+
+    def insert_user(self, user):
+        user["_id"] = user["id"]
+        del user["id"]
+        try:
+            return self._insert_doc("users", user)
+        except DuplicateKeyError:
+            return {
+                "ok":0,
+                "error":"User exists"
+            }
+
+    def update_bad_word(self, bad_word, user_id):
+        user_info = self._get_record("users", user_id)
+        registered_words = user_info.get("registered_words", [])
+        if bad_word in registered_words:
+            return f"Вы уже добавляли слово {bad_word} в список плохих"
+        else:
+            registered_words.append(bad_word)
+            self._get_coll("users").update_one({"_id": user_id}, {"$set": {"registered_words": registered_words}})
+            return f"Слово {bad_word} успешно обновлено в списке плохих слов"
