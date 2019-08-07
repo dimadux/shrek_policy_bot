@@ -68,7 +68,7 @@ class DB:
 
     def add_token_to_user(self, user_id, token):
         user_tokens = self._get_record("users", user_id).get("tokens", [])
-        user_tokens = user_tokens + token
+        user_tokens = user_tokens + [token]
         self._get_coll("users").update_one({"_id":user_id}, {"$set": {
             "tokens":user_tokens
         }})
