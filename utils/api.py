@@ -1,5 +1,6 @@
 from utils.db import DB
 from telebot import TeleBot
+from copy import copy
 import re
 
 class Api:
@@ -22,6 +23,7 @@ class Api:
                 self.process(update.message.json)
 
     def check_bad_word(self, update):
+        update = copy(update)
         chat = update.get("chat")
         chat_id = chat.get("id")
         self.save_chat(chat)
