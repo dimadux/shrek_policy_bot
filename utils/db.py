@@ -7,7 +7,7 @@ class DB:
     def __init__(self, db_config):
         self._mc = MongoClient(**db_config["auth"])
         self._collections = db_config["collections"]
-        self._db = db_config["db"]
+        self._db = db_config["database"]
 
     def _get_coll(self, coll_name):
         try:
