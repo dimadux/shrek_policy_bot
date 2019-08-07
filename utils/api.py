@@ -1,6 +1,6 @@
 from utils.db import DB
 from telebot import TeleBot
-from copy import copy
+from copy import deepcopy
 import re
 
 class Api:
@@ -23,7 +23,7 @@ class Api:
                 self.process(update.message.json)
 
     def check_bad_word(self, update):
-        update = copy(update)
+        update = deepcopy(update)
         chat = update.get("chat")
         chat_id = chat.get("id")
         self.save_chat(chat)
@@ -52,7 +52,6 @@ class Api:
     def check_register(self, update):
         text = update.get("text")
         chat_id = update.get("chat").get("id")
-        print(chat_id)
         user = update.get("from").get("id")
         if "/register" in text:
             tokens = re.split(r"[,.\n\s!]", text)
@@ -70,7 +69,7 @@ class Api:
         pass
 
     def process(self, update):
-        self.check_bad_word(update)
-        self.check_register(update)
-        self.check_unregister(update)
-        self.check_stats(update)
+        self.check_bad_word(deepcopy(update))
+        self.check_register(deepcopy(update))
+        self.check_unregister(deepcopy(update))
+        self.check_stats(deepcopy(update))
