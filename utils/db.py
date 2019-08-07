@@ -56,7 +56,7 @@ class DB:
         chat_doc["_id"] = chat_doc["id"]
         del chat_doc["id"]
         try:
-            return self._insert_doc(chat_doc)
+            return self._insert_doc("chats",chat_doc)
         except DuplicateKeyError:
             return {
                 "ok":0,
