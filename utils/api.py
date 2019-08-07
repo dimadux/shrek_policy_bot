@@ -52,6 +52,7 @@ class Api:
     def check_register(self, update):
         text = update.get("text")
         chat_id = update.get("chat").get("id")
+        print(chat_id)
         user = update.get("from").get("id")
         if "/register" in text:
             tokens = re.split(r"[,.\n\s!]", text)
