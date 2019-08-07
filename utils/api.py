@@ -23,8 +23,8 @@ class Api:
 
     def check_bad_word(self, update):
         chat = update.get("chat")
-        self.save_chat(chat)
         chat_id = chat.get("id")
+        self.save_chat(chat)
         message_id = update.get("message_id")
         text = update.get("text", "")
         user = update.get("from")
