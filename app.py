@@ -16,7 +16,9 @@ def init_project():
 @app.route("/start", methods=["GET"])
 def start():
     init_project()
-
+    return jsonify({
+        "status":"started"
+    })
 
 
 
