@@ -22,7 +22,7 @@ class DB:
         return self._get_coll(coll_name).find(filter, projection)
 
     def _insert_doc(self, coll_name, doc):
-        return self._get_coll(coll_name).insert_one(doc).raw_result
+        return self._get_coll(coll_name).insert_one(doc).inserted_id
 
     def _update_doc(self, coll_name, doc):
         _id = doc.pop("_id")
