@@ -92,8 +92,5 @@ class DB:
         else:
             registered_words.append(bad_word)
             self._get_coll("users").update_one({"_id": user_id}, {"$set": {"registered_words": registered_words}})
-            self._insert_doc("bad_words", {
-                "_id":bad_word,
-                "confidence":0.4
-            })
+            self.insert_bad_word(bad_word)
             return f"Слово {bad_word} успешно обновлено в списке плохих слов"
